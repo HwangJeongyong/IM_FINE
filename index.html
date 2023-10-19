@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>인터랙티브 막대 챠트 어플리케이션 제작</title>
+    <script defer src="main.js"></script>
+    <link rel="stylesheet" href="index.css" />
+  </head>
+  <body>
+    <div class="app-container">
+      <div class="applicant">아이엠파인 SD팀 지원자 황정용</div>
+      <!-- 그래프 -->
+      <div class="graph-container">
+        <div>1. 그래프</div>
+        <div class="graph-background">
+          <div id="vertical-line"></div>
+          <div id="horizon-line"></div>
+          <div class="graph-standard">
+            <div class="standard100">100</div>
+            <div class="standard0">0</div>
+          </div>
+          <div id="graph-list"></div>
+        </div>
+      </div>
+      <!-- 값 편집 -->
+      <div class="editor-container">
+        <div>2. 값 편집</div>
+        <div id="editor-table">
+          <div id="editor-header">
+            <div>ID</div>
+            <div>값</div>
+            <div>삭제</div>
+          </div>
+          <div id="editor-list"></div>
+          <button id="editor-button" onclick="editValue()">Apply</button>
+        </div>
+      </div>
+      <!-- 값 추가 -->
+      <div class="addValue-container">
+        <div>3. 값 추가</div>
+        <form id="add-form">
+          <input id="add-id" placeholder="ID" />
+          <input id="add-value" type="number" step="0.01" placeholder="VALUE" />
+          <input id="add-button" type="submit" value="Add" />
+        </form>
+      </div>
+      <!-- 값 고급 편집 -->
+      <div class="jsonEditor-container">
+        <div>4. 값 고급 편집</div>
+        <textarea id="jsonEditor" cols="64" rows="32"></textarea>
+        <button id="jsonEditor-button" onclick="jsonUpdate()">Apply</button>
+      </div>
+    </div>
+  </body>
+</html>
