@@ -99,6 +99,13 @@ function createRow(id, value) {
   const valueInput = document.createElement("input"); // 편집 VALUE input태그
   const removeBtn = document.createElement("button"); // 행 삭제 button태그
 
+  // 값 변경시 그래프 높이 바꾸기
+  valueInput.addEventListener("input", (e) => { 
+    const graphDiv = document.getElementById(`graph-value-${id}`);
+    valueInput.value = e.target.value
+    graphDiv.style.height = `${5 * valueInput.value}px`;
+  })
+
   row.className = "editor-row";
 
   idDiv.id = `editor-id-${id}`;
@@ -168,6 +175,13 @@ function jsonUpdate() {
   const newData = strToJson(str); // 값 고급 편집의 텍스트를 객체로 변환
   if (!newData | !validateJson(newData)) return; // 유효성 검사
   data = newData;
+  replaceData(data);
+
+  jsonEditor.value = jsonToStr(data);
+}
+
+// 변경된 데이터 그래프, 값편집에 반영
+function replaceData(data) { 
   let newGraphs = [];
   let newRows = [];
   data.forEach((item) => {
@@ -177,8 +191,6 @@ function jsonUpdate() {
   });
   graphList.replaceChildren(...newGraphs); // 변경된 data로 그래프 교체
   editorList.replaceChildren(...newRows); // 변경된 data로 값 편집 교체
-
-  jsonEditor.value = jsonToStr(data);
 }
 
 // data 객체를 문자열 형태로 변환 후 반환
@@ -238,4 +250,32 @@ function validateJson(newData) {
     }
   }
   return true;
+}
+
+// 오름차순 정렬
+function sortAsc() { 
+  data = data.sort(function (a, b) {
+    if (a.value > b.value) {
+      return 1;
+    }
+    if (a.value < b.value) {
+      return -1;
+    }
+    return 0;
+  })
+  replaceData(data);
+}
+
+// 내림차순 정렬
+function sortDsc() { 
+  data = data.sort(function (a, b) {
+    if (a.value < b.value) {
+      return 1;
+    }
+    if (a.value > b.value) {
+      return -1;
+    }
+    return 0;
+  })
+  replaceData(data);
 }
